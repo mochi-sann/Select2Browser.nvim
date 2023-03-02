@@ -10,7 +10,7 @@ Text selected in visual mode can be searched in the Browser
   config = function()
     require("Select2Browser").setup({})
     -- example keymap
-    vim.api.nvim_set_keymap("", "<Leader>g", ":Select2Browser<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("", "<Leader>g", "<Cmd>Select2Browser<CR>", { noremap = true, silent = true })
   end,
 },
 ```
