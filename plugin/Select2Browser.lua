@@ -1,10 +1,1 @@
--- vim.api.nvim_create_user_command("MyFirstFunction", require("plugin_name").hello, {})
--- vim.api.nvim_create_user_command("Selected2Google", function(name)
---   local text = get_visual_selection()
---   print(name)
---   search_selection_in_google(text)
--- end, { nargs = 0, range = true })
-
--- require("Select2Browser").setup()
--- vim.api.nvim_set_keymap("", "<Leader>g", ":Selected2Google<CR>", { noremap = true, silent = true })
 require("Select2Browser").setup()
