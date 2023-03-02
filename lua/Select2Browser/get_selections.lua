@@ -4,10 +4,10 @@ local M = {}
 M.get_marked_region = function(mark1, mark2, options)
   local bufnr = 0
   local adjust = options.adjust or function(pos1, pos2)
-        return pos1, pos2
-      end
+    return pos1, pos2
+  end
   local regtype = options.regtype or vim.fn.visualmode()
-  local selection = options.selection or (vim.o.selection ~= 'exclusive')
+  local selection = options.selection or (vim.o.selection ~= "exclusive")
 
   local pos1 = vim.fn.getpos(mark1)
   local pos2 = vim.fn.getpos(mark2)
@@ -17,7 +17,9 @@ M.get_marked_region = function(mark1, mark2, options)
   local finish = { pos2[2] - 1, pos2[3] - 1 + pos2[4] }
 
   -- Return if start or finish are invalid
-  if start[2] < 0 or finish[1] < start[1] then return end
+  if start[2] < 0 or finish[1] < start[1] then
+    return
+  end
 
   local region = vim.region(bufnr, start, finish, regtype, selection)
   return region, start, finish
@@ -36,7 +38,9 @@ M.get_visual_selection = function()
   }
 
   -- Return if not in visual mode
-  if visual_modes[vim.api.nvim_get_mode().mode] == nil then return end
+  if visual_modes[vim.api.nvim_get_mode().mode] == nil then
+    return
+  end
 
   local options = {}
   options.adjust = function(pos1, pos2)
@@ -55,13 +59,12 @@ M.get_visual_selection = function()
     end
   end
 
-  local region, start, finish = M.get_marked_region('v', '.', options)
+  local region, start, finish = M.get_marked_region("v", ".", options)
 
   -- Compute the number of chars to get from the first line,
   -- because vim.region returns -1 as the ending col if the
   -- end of the line is included in the selection
-  local lines =
-      vim.api.nvim_buf_get_lines(bufnr, start[1], finish[1] + 1, false)
+  local lines = vim.api.nvim_buf_get_lines(bufnr, start[1], finish[1] + 1, false)
   local line1_end
   if region[start[1]][2] - region[start[1]][1] < 0 then
     line1_end = #lines[1] - region[start[1]][1]
@@ -71,12 +74,7 @@ M.get_visual_selection = function()
 
   lines[1] = vim.fn.strpart(lines[1], region[start[1]][1], line1_end, true)
   if start[1] ~= finish[1] then
-    lines[#lines] =
-        vim.fn.strpart(
-          lines[#lines],
-          region[finish[1]][1],
-          region[finish[1]][2] - region[finish[1]][1]
-        )
+    lines[#lines] = vim.fn.strpart(lines[#lines], region[finish[1]][1], region[finish[1]][2] - region[finish[1]][1])
   end
   return table.concat(lines)
 end

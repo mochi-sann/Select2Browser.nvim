@@ -1,4 +1,4 @@
-local get_selection_module = require('Select2Browser.get_selections')
+local get_selection_module = require("Select2Browser.get_selections")
 
 -- module represents a lua module for the plugin
 
@@ -18,7 +18,6 @@ M.get_visual_selection = function()
   end
 end
 
-
 M.get_current_mode = function()
   return vim.api.nvim_get_mode().mode
 end
@@ -37,18 +36,17 @@ M.search_selection_in_google = function(text, base_url, base_cmd)
   vim.api.nvim_command("! " .. remove_line_break)
 end
 
-
 M.Select2BrowserCommand = function(base_url, base_cmd)
   local visualList = {
     v = true,
     vs = true,
     V = true,
     Vs = true,
-    ['\22'] = true,
-    ['\22s'] = true,
+    ["\22"] = true,
+    ["\22s"] = true,
     Rv = true,
     Rvc = true,
-    Rvx = true
+    Rvx = true,
   }
 
   local text = ""
@@ -62,7 +60,7 @@ M.Select2BrowserCommand = function(base_url, base_cmd)
   print("text = " .. text)
 
   -- local text = M.get_visual_selection()
-  print('text is ' .. text)
+  print("text is " .. text)
   M.search_selection_in_google(text, base_url, base_cmd)
 end
 
