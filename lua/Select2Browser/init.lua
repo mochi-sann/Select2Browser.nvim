@@ -13,9 +13,9 @@ M.setup = function(args)
   -- you can define your setup function here. Usually configurations can be merged, accepting outside params and
   -- you can also put some validation here for those.
   M.config = vim.tbl_deep_extend("force", config, args or {})
+
   vim.api.nvim_create_user_command("Select2Browser", function(name)
-    local text = module.get_visual_selection()
-    module.search_selection_in_google(text, M.config.base_url, M.config.base_cmd)
+    module.Select2BrowserCommand(M.config.base_url, M.config.base_cmd)
   end, { nargs = 0, range = true })
 end
 

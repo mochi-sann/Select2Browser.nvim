@@ -17,6 +17,14 @@ M.get_visual_selection = function()
   return table.concat(lines, "\n")
 end
 
+M.get_current_mode = function()
+  return vim.api.nvim_get_mode().mode
+end
+
+M.get_cursor_word = function()
+  return vim.fn.expand("<cword>")
+end
+
 M.search_selection_in_google = function(text, base_url, base_cmd)
   local selected_text = text
   local new_url = base_url:gsub("{replase_text}", selected_text)
@@ -25,6 +33,23 @@ M.search_selection_in_google = function(text, base_url, base_cmd)
   print(remove_line_break)
 
   vim.api.nvim_command("! " .. remove_line_break)
+end
+
+local visualList = { 'v', 'vs', 'V', 'Vs', '\22', '\22s', 'Rv', 'Rvc', 'Rvx' }
+
+M.Select2BrowserCommand = function(base_url, base_cmd)
+  local text = ""
+  print("M.get_current_mode()" .. M.get_current_mode())
+
+  if M.get_current_mode() == "v" or M.get_current_mode() == "V" or M.get_current_mode() == "^V" or M.get_current_mode() == "^Vs" or M.get_current_mode() == "Vs" or M.get_current_mode() == "vs" or M.get_current_mode() == "CTRL-V" or M.get_current_mode() == "CTRL-Vs" then
+    text = M.get_visual_selection()
+  else
+    text = vim.fn.expand("<cword>")
+  end
+
+  -- local text = M.get_visual_selection()
+  print('text is ' .. text)
+  M.search_selection_in_google(text, base_url, base_cmd)
 end
 
 return M
