@@ -6,7 +6,7 @@ Text selected in visual mode can be searched in the Browser
 ```lua
 -- lazy.nvim
 {
-  "mochi-sann/Select2Browser.nvim"
+  "mochi-sann/Select2Browser.nvim",
   config = function()
     require("Select2Browser").setup({})
     -- example keymap
