@@ -1,8 +1,5 @@
 -- module represents a lua module for the plugin
 local M = {}
-M.my_first_function = function()
-  return "hello world!"
-end
 
 M.get_visual_selection = function()
   local s_start = vim.fn.getpos("'<")
@@ -23,8 +20,10 @@ end
 M.search_selection_in_google = function(text, base_url, base_cmd)
   local selected_text = text
   local new_url = base_url:gsub("{search_text}", selected_text)
-  local open_cmd = base_cmd:gsub("{open_url}", "`" .. new_url .. "`")
+  local open_cmd = base_cmd:gsub("{open_url}", "'" .. new_url .. "'")
   local remove_line_break = open_cmd:gsub("\n", " ")
+  print(remove_line_break)
+
   vim.api.nvim_command("! " .. remove_line_break)
 end
 
