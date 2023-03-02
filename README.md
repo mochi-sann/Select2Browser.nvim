@@ -23,7 +23,7 @@ Text selected in visual mode can be searched in the Browser
     * Open selected text in visual mode with pre-set url
 
 ## config
-{replase_text} replaces the selected string
+`{replase_text}` replaces the selected string
 ```lua
 -- default config
 require("Select2Browser").setup({
