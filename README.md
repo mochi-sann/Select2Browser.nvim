@@ -20,7 +20,7 @@ Text selected in visual mode can be searched in the Browser
 ## Commands
 
 * `:Select2Browser`
-    * Open selected text in visual mode with pre-set url
+    * In Visual mode, it searches the selected range, in other modes, it searches for words under the cursor
 
 ## config
 `{replase_text}` replaces the selected string

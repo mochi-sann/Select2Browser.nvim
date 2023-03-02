@@ -1,4 +1,7 @@
+local get_selection_module = require("Select2Browser.get_selections")
+
 -- module represents a lua module for the plugin
+
 local M = {}
 
 M.get_visual_selection = function()
@@ -13,8 +16,14 @@ M.get_visual_selection = function()
   else
     lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
   end
+end
 
-  return table.concat(lines, "\n")
+M.get_current_mode = function()
+  return vim.api.nvim_get_mode().mode
+end
+
+M.get_cursor_word = function()
+  return vim.fn.expand("<cword>")
 end
 
 M.search_selection_in_google = function(text, base_url, base_cmd)
@@ -25,6 +34,34 @@ M.search_selection_in_google = function(text, base_url, base_cmd)
   print(remove_line_break)
 
   vim.api.nvim_command("! " .. remove_line_break)
+end
+
+M.Select2BrowserCommand = function(base_url, base_cmd)
+  local visualList = {
+    v = true,
+    vs = true,
+    V = true,
+    Vs = true,
+    ["\22"] = true,
+    ["\22s"] = true,
+    Rv = true,
+    Rvc = true,
+    Rvx = true,
+  }
+
+  local text = ""
+  print("M.get_current_mode()" .. M.get_current_mode())
+
+  if visualList[M.get_current_mode()] == true then
+    text = get_selection_module.get_visual_selection() or ""
+  else
+    text = vim.fn.expand("<cword>")
+  end
+  print("text = " .. text)
+
+  -- local text = M.get_visual_selection()
+  print("text is " .. text)
+  M.search_selection_in_google(text, base_url, base_cmd)
 end
 
 return M
