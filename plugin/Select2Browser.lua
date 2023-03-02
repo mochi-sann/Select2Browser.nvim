@@ -1,1 +1,1 @@
-require("Select2Browser").setup()
+-- require("Select2Browser").setup()
