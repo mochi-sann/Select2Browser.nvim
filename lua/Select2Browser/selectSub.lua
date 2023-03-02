@@ -19,8 +19,8 @@ end
 
 M.search_selection_in_google = function(text, base_url, base_cmd)
   local selected_text = text
-  local new_url = base_url:gsub("{search_text}", selected_text)
-  local open_cmd = base_cmd:gsub("{open_url}", "'" .. new_url .. "'")
+  local new_url = base_url:gsub("{replase_text}", selected_text)
+  local open_cmd = base_cmd:gsub("{replase_text}", "'" .. new_url .. "'")
   local remove_line_break = open_cmd:gsub("\n", " ")
   print(remove_line_break)
 

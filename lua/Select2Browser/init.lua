@@ -4,8 +4,8 @@ local module = require("Select2Browser.selectSub")
 local M = {}
 local config = {
   -- default config
-  base_url = "https://www.google.com/search?q={search_text}",
-  base_cmd = "open {open_url}",
+  base_url = "https://www.google.com/search?q={replase_text}",
+  base_cmd = "open {replase_text}",
 }
 
 -- setup is the public method to setup your plugin
@@ -20,5 +20,5 @@ M.setup = function(args)
 end
 
 -- "hello" is a public method for the plugin
-local Select2Browser = M;
+local Select2Browser = M
 return Select2Browser
